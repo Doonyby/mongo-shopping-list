@@ -96,7 +96,7 @@ describe('Shopping List', function() {
     it('should edit an item on put given an id', function(done) {
         chai.request(app)
             .put('/items/57bd1593d8cd9fe199ccee0f')
-            .send({'name': 'White beans', '_id': '57bd1593d8cd9fe199ccee0f'})
+            .send({'name': 'White beans', 'id': '57bd1593d8cd9fe199ccee0f'})
             .end(function(err, res) {
                 console.log(res.body);
                 res.should.have.status(201);
@@ -205,16 +205,16 @@ describe('Shopping List', function() {
 //             });
 //         });
 //     });
-    // it('should not post without body data', function(done) {
-    //     chai.request(app)
-    //         .post('/items')
-    //         .send({})
-    //         .end(function(err, res) {
-    //             res.should.have.status(400);
-    //             res.body.should.not.have.property('name');
-    //             done();
-    //         });
-    // });
+//     it('should not post without body data', function(done) {
+//         chai.request(app)
+//             .post('/items')
+//             .send({})
+//             .end(function(err, res) {
+//                 res.should.have.status(400);
+//                 res.body.should.not.have.property('name');
+//                 done();
+//             });
+//     });
 //     after(function(done) {
 //         Item.remove(function() {
 //             done();
@@ -222,31 +222,31 @@ describe('Shopping List', function() {
 //     });
 // });
 
-// describe('Shopping List', function() {
-//     before(function(done) {
-//         server.runServer(function() {
-//             Item.create({name: 'Broad beans'},
-//                         {name: 'Tomatoes'},
-//                         {name: 'Peppers'}, function() {
-//                 done();
-//             });
-//         });
-//     });
-    // it('should not put without an id in the end point', function(done) {
-    //     chai.request(app)
-    //         .put('/items')
-    //         .send({'name': 'blue berries'})
-    //         .end(function(err,res) {
-    //             res.should.have.status(404);
-    //             done();
-    //         });
-    // });
-//     after(function(done) {
-//         Item.remove(function() {
-//             done();
-//         });
-//     });
-// });
+describe('Shopping List', function() {
+    before(function(done) {
+        server.runServer(function() {
+            Item.create({name: 'Broad beans'},
+                        {name: 'Tomatoes'},
+                        {name: 'Peppers'}, function() {
+                done();
+            });
+        });
+    });
+    it('should not put without an id in the end point', function(done) {
+        chai.request(app)
+            .put('/items')
+            .send({'name': 'blue berries'})
+            .end(function(err,res) {
+                res.should.have.status(404);
+                done();
+            });
+    });
+    after(function(done) {
+        Item.remove(function() {
+            done();
+        });
+    });
+});
 
 describe('Shopping List', function() {
     before(function(done) {
@@ -274,79 +274,79 @@ describe('Shopping List', function() {
     });
 });
 
-// describe('Shopping List', function() {
-//     before(function(done) {
-//         server.runServer(function() {
-//             Item.create({name: 'Broad beans'},
-//                         {name: 'Tomatoes'},
-//                         {name: 'Peppers'}, function() {
-//                 done();
-//             });
-//         });
-//     });
-    // it('should not put to an id that does not exist', function(done) {
-    //     chai.request(app)
-    //         .put('/items/10')
-    //         .send({'name': 'watermelon', 'id': 10})
-    //         .end(function(err,res) {
-    //             res.should.have.status(400);
-    //             done();
-    //         });
-    // });
-//     after(function(done) {
-//         Item.remove(function() {
-//             done();
-//         });
-//     });
-// });
+describe('Shopping List', function() {
+    before(function(done) {
+        server.runServer(function() {
+            Item.create({name: 'Broad beans'},
+                        {name: 'Tomatoes'},
+                        {name: 'Peppers'}, function() {
+                done();
+            });
+        });
+    });
+    it('should not put to an id that does not exist', function(done) {
+        chai.request(app)
+            .put('/items/10')
+            .send({'name': 'watermelon', 'id': 10})
+            .end(function(err,res) {
+                res.should.have.status(400);
+                done();
+            });
+    });
+    after(function(done) {
+        Item.remove(function() {
+            done();
+        });
+    });
+});
 
-// describe('Shopping List', function() {
-//     before(function(done) {
-//         server.runServer(function() {
-//             Item.create({name: 'Broad beans'},
-//                         {name: 'Tomatoes'},
-//                         {name: 'Peppers'}, function() {
-//                 done();
-//             });
-//         });
-//     });
-    // it('should not delete an id that does not exist', function(done) {
-    //     chai.request(app)
-    //         .delete('/items/8')
-    //         .end(function(err,res) {
-    //             res.should.have.status(400);
-    //             done();
-    //         });
-    // });
-//     after(function(done) {
-//         Item.remove(function() {
-//             done();
-//         });
-//     });
-// });
+describe('Shopping List', function() {
+    before(function(done) {
+        server.runServer(function() {
+            Item.create({name: 'Broad beans'},
+                        {name: 'Tomatoes'},
+                        {name: 'Peppers'}, function() {
+                done();
+            });
+        });
+    });
+    it('should not delete an id that does not exist', function(done) {
+        chai.request(app)
+            .delete('/items/8')
+            .end(function(err,res) {
+                res.should.have.status(500);
+                done();
+            });
+    });
+    after(function(done) {
+        Item.remove(function() {
+            done();
+        });
+    });
+});
 
-// describe('Shopping List', function() {
-//     before(function(done) {
-//         server.runServer(function() {
-//             Item.create({name: 'Broad beans'},
-//                         {name: 'Tomatoes'},
-//                         {name: 'Peppers'}, function() {
-//                 done();
-//             });
-//         });
-//     });
-    // it('should not delete without an id in the endpoint', function(done) {
-    //     chai.request(app)
-    //         .delete('/items/')
-    //         .end(function(err,res) {
-    //             res.should.have.status(404);
-    //             done();
-    //         });
-    // });
-//     after(function(done) {
-//         Item.remove(function() {
-//             done();
-//         });
-//     });
-// });
+describe('Shopping List', function() {
+    before(function(done) {
+        server.runServer(function() {
+            Item.create({name: 'Broad beans'},
+                        {name: 'Tomatoes'},
+                        {name: 'Peppers'}, function() {
+                done();
+            });
+        });
+    });
+    it('should not delete without an id in the endpoint', function(done) {
+        chai.request(app)
+            .delete('/items/')
+            .end(function(err,res) {
+                res.should.have.status(404);
+                done();
+            });
+    });
+    after(function(done) {
+        Item.remove(function() {
+            done();
+        });
+    });
+});
 

@@ -46,7 +46,7 @@ if (require.main === module) {
     });
     
     app.post('/items', function(req, res) {
-        if (!req.body) {
+        if (!req.body || req.body == null) {
             return res.status(400).json({
                 message: 'Internal Server Error'
             });
@@ -89,7 +89,7 @@ if (require.main === module) {
     });
     
     app.put('/items/:id', function(req, res) {
-        if (req.params.id !== req.body._id) {
+        if (req.params.id !== req.body.id) {
             return res.status(400).send();
         } 
         Item.findOne({_id: req.params.id}, function(err, item){
