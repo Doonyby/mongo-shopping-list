@@ -46,12 +46,11 @@ if (require.main === module) {
     });
     
     app.post('/items', function(req, res) {
-        if (!req.body || req.body == null) {
+        if (!req.body || JSON.stringify(req.body) == "{}") {
             return res.status(400).json({
                 message: 'Internal Server Error'
             });
-        }
-        if (req.body) {
+        } else if (req.body) {
             Item.findOne({name: req.body.name}, function(err, items) {
                 if (err) {
                     console.error('could not read items', items);
@@ -63,17 +62,21 @@ if (require.main === module) {
                     return res.status(400).json({
                         message: 'Item already exists'
                     });
+                } else {
+                    Item.create({name: req.body.name}, function(error, item) {
+                        console.log(req.body);
+                        if (error) {
+                            return res.status(500).json({
+                                message: 'Internal Server Error'
+                            });
+                        }
+                        return res.status(201).json(item);
+                    });
                 }
             });
-        }
-        Item.create({name: req.body.name}, function(error, item) {
-            if (error) {
-                return res.status(500).json({
-                    message: 'Internal Server Error'
-                });
-            }
-            res.status(201).json(item);
-        });
+        } 
+            
+
     });
     
     app.delete('/items/:id', function(req, res) {
